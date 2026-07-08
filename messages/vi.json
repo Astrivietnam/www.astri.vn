@@ -1,0 +1,81 @@
+{
+  "nav": {
+    "home": "Trang chủ",
+    "about": "Giới thiệu",
+    "research": "Nghiên cứu khoa học",
+    "technology": "Ứng dụng công nghệ",
+    "trade": "Xúc tiến thương mại",
+    "training": "Đào tạo",
+    "farm": "Trang trại Bình Dương",
+    "oresoi": "Tinh dầu Oresoi",
+    "news": "Tin tức",
+    "contact": "Liên hệ"
+  },
+  "home": {
+    "hero": {
+      "badge": "Viện Nghiên cứu",
+      "title": "Công nghệ Hỗ trợ Nông nghiệp Việt Nam",
+      "subtitle": "Nghiên cứu, ứng dụng và chuyển giao công nghệ tiên tiến vào sản xuất nông nghiệp — vì một nền nông nghiệp xanh, bền vững và hiện đại.",
+      "cta_primary": "Khám phá nghiên cứu",
+      "cta_secondary": "Liên hệ hợp tác"
+    },
+    "about_section": {
+      "eyebrow": "Về chúng tôi",
+      "title": "Viện ASTRI",
+      "body": "Viện Nghiên cứu Công nghệ Hỗ trợ Nông nghiệp (ASTRI) là tổ chức khoa học công nghệ hoạt động trong lĩnh vực nghiên cứu, ứng dụng và chuyển giao công nghệ phục vụ phát triển nông nghiệp bền vững tại Việt Nam."
+    },
+    "stats": {
+      "research": "Công trình nghiên cứu",
+      "partners": "Đối tác trong nước & quốc tế",
+      "patents": "Sáng chế đăng ký",
+      "provinces": "Tỉnh thành triển khai"
+    },
+    "news_section": {
+      "eyebrow": "Tin tức & Sự kiện",
+      "title": "Hoạt động mới nhất",
+      "view_all": "Xem tất cả"
+    },
+    "areas": {
+      "eyebrow": "Lĩnh vực hoạt động",
+      "title": "Những gì chúng tôi làm",
+      "research": {
+        "title": "Nghiên cứu Khoa học",
+        "desc": "Nghiên cứu, phát triển công nghệ và giải pháp kỹ thuật phục vụ sản xuất nông nghiệp"
+      },
+      "technology": {
+        "title": "Ứng dụng Công nghệ",
+        "desc": "Triển khai các giải pháp IoT, blockchain và công nghệ số trong nông nghiệp"
+      },
+      "trade": {
+        "title": "Xúc tiến Thương mại",
+        "desc": "Kết nối đối tác trong nước và quốc tế, ký kết MOU, phát triển thị trường"
+      },
+      "training": {
+        "title": "Đào tạo",
+        "desc": "Chương trình đào tạo, tập huấn kỹ thuật cho nông dân và doanh nghiệp"
+      }
+    },
+    "contact_cta": {
+      "title": "Hợp tác cùng ASTRI",
+      "body": "Chúng tôi sẵn sàng đồng hành cùng doanh nghiệp, tổ chức và địa phương trong phát triển nông nghiệp bền vững.",
+      "cta": "Liên hệ ngay"
+    }
+  },
+  "footer": {
+    "tagline": "Nghiên cứu · Ứng dụng · Chuyển giao công nghệ nông nghiệp",
+    "quick_links": "Liên kết nhanh",
+    "contact_info": "Thông tin liên hệ",
+    "address_label": "Địa chỉ",
+    "email_label": "Email",
+    "copyright": "Viện Nghiên cứu Công nghệ Hỗ trợ Nông nghiệp (ASTRI)"
+  },
+  "contact": {
+    "title": "Liên hệ với chúng tôi",
+    "name": "Họ và tên",
+    "email": "Email",
+    "subject": "Chủ đề",
+    "message": "Nội dung",
+    "send": "Gửi tin nhắn",
+    "success": "Đã gửi thành công! Chúng tôi sẽ phản hồi sớm nhất."
+  }
+}

@@ -1,26 +1,64 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+  --green-950: #0D2B16;
+  --green-900: #143D20;
+  --green-800: #1A6B2F;
+  --green-700: #1F7D37;
+  --green-600: #2A9445;
+  --green-500: #3AAD57;
+  --green-400: #5DC272;
+  --green-300: #8DC63F;
+  --green-200: #B8E07A;
+  --green-100: #DFF0B3;
+  --green-50:  #F0F9E8;
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --bg:           #F5F8F5;
+  --surface:      #FFFFFF;
+  --surface-2:    #EDF5EE;
+  --border:       #D0E4D3;
+  --border-light: #E5F0E6;
+  --text-1:       #0F1F12;
+  --text-2:       #3A5040;
+  --text-3:       #6B8C72;
+  --text-inv:     #FFFFFF;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --bg:           #0A1A0D;
+    --surface:      #111F14;
+    --surface-2:    #172619;
+    --border:       #1E3522;
+    --border-light: #243D28;
+    --text-1:       #E8F5EB;
+    --text-2:       #A8C9AE;
+    --text-3:       #5E8665;
+    --text-inv:     #0F1F12;
   }
 }
 
+:root[data-theme="light"] {
+  --bg:#F5F8F5; --surface:#FFFFFF; --surface-2:#EDF5EE;
+  --border:#D0E4D3; --text-1:#0F1F12; --text-2:#3A5040; --text-3:#6B8C72;
+}
+:root[data-theme="dark"] {
+  --bg:#0A1A0D; --surface:#111F14; --surface-2:#172619;
+  --border:#1E3522; --text-1:#E8F5EB; --text-2:#A8C9AE; --text-3:#5E8665;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-font-smoothing: antialiased; scroll-behavior: smooth; }
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--bg);
+  color: var(--text-1);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+  margin: 0;
+  line-height: 1.6;
+}
+h1, h2, h3, h4, h5, h6 { text-wrap: balance; line-height: 1.2; letter-spacing: -0.02em; }
+img { max-width: 100%; display: block; }
+a { color: inherit; text-decoration: none; }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
 }

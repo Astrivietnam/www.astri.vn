@@ -1,0 +1,81 @@
+{
+  "nav": {
+    "home": "Home",
+    "about": "About",
+    "research": "Scientific Research",
+    "technology": "Technology",
+    "trade": "Trade Promotion",
+    "training": "Training",
+    "farm": "Binh Duong Farm",
+    "oresoi": "Oresoi Essential Oils",
+    "news": "News",
+    "contact": "Contact"
+  },
+  "home": {
+    "hero": {
+      "badge": "Research Institute",
+      "title": "Agricultural Support Technology for Vietnam",
+      "subtitle": "Researching, applying, and transferring advanced technology to agriculture — for a green, sustainable, and modern farming future.",
+      "cta_primary": "Explore Research",
+      "cta_secondary": "Partner with Us"
+    },
+    "about_section": {
+      "eyebrow": "About Us",
+      "title": "ASTRI Institute",
+      "body": "The Agricultural Support Technology Research Institute (ASTRI) is a science and technology organization dedicated to researching, applying, and transferring technology for sustainable agricultural development in Vietnam."
+    },
+    "stats": {
+      "research": "Research Projects",
+      "partners": "Domestic & International Partners",
+      "patents": "Registered Patents",
+      "provinces": "Provinces Reached"
+    },
+    "news_section": {
+      "eyebrow": "News & Events",
+      "title": "Latest Activities",
+      "view_all": "View All"
+    },
+    "areas": {
+      "eyebrow": "Areas of Activity",
+      "title": "What We Do",
+      "research": {
+        "title": "Scientific Research",
+        "desc": "Developing technology and engineering solutions for agricultural production"
+      },
+      "technology": {
+        "title": "Technology Application",
+        "desc": "Deploying IoT, blockchain and digital solutions in agriculture"
+      },
+      "trade": {
+        "title": "Trade Promotion",
+        "desc": "Connecting domestic and international partners, MOU signings, market development"
+      },
+      "training": {
+        "title": "Training",
+        "desc": "Technical training programs for farmers and agribusinesses"
+      }
+    },
+    "contact_cta": {
+      "title": "Partner with ASTRI",
+      "body": "We are ready to work alongside businesses, organizations, and local governments in developing sustainable agriculture.",
+      "cta": "Contact Us"
+    }
+  },
+  "footer": {
+    "tagline": "Research · Application · Agricultural Technology Transfer",
+    "quick_links": "Quick Links",
+    "contact_info": "Contact Information",
+    "address_label": "Address",
+    "email_label": "Email",
+    "copyright": "Agricultural Support Technology Research Institute (ASTRI)"
+  },
+  "contact": {
+    "title": "Contact Us",
+    "name": "Full Name",
+    "email": "Email",
+    "subject": "Subject",
+    "message": "Message",
+    "send": "Send Message",
+    "success": "Sent successfully! We will respond as soon as possible."
+  }
+}
