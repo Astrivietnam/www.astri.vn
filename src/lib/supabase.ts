@@ -32,6 +32,80 @@ export type Post = {
   is_featured: boolean
   published_at: string | null
   created_at: string
+  // Extended SEO / meta fields
+  seo_title?: string | null
+  seo_description?: string | null
+  og_image_url?: string | null
+  view_count?: number | null
+  allow_comments?: boolean | null
+  author_id?: string | null
+  category_id?: string | null
+  tags_cache?: string[] | null
+}
+
+// ---------------------------------------------------------------------------
+// CMS entity types
+// ---------------------------------------------------------------------------
+
+export type Category = {
+  id: string
+  name_vi: string
+  name_en: string
+  slug: string
+  description_vi?: string | null
+  description_en?: string | null
+  parent_id?: string | null
+  post_type: string
+  sort_order: number
+}
+
+export type Tag = {
+  id: string
+  name_vi: string
+  name_en: string
+  slug: string
+}
+
+export type AdminUser = {
+  id: string
+  email: string
+  name: string
+  role: string
+  avatar_url?: string | null
+  is_active: boolean
+  last_login_at?: string | null
+  created_at: string
+}
+
+export type Staff = {
+  id: string
+  name_vi: string
+  name_en: string
+  title_vi?: string | null
+  title_en?: string | null
+  department_vi?: string | null
+  department_en?: string | null
+  bio_vi?: string | null
+  bio_en?: string | null
+  photo_url?: string | null
+  email?: string | null
+  sort_order: number
+  is_leadership: boolean
+  is_active: boolean
+}
+
+export type MediaFile = {
+  id: string
+  file_name: string
+  r2_key: string
+  url: string
+  mime_type?: string | null
+  size_bytes?: number | null
+  alt_vi?: string | null
+  alt_en?: string | null
+  width?: number | null
+  height?: number | null
+  created_at: string
 }
 
 export type Page = {
