@@ -27,11 +27,12 @@ export async function generateMetadata({
   const description = post.seo_description || (isVi ? post.excerpt_vi : (post.excerpt_en ?? post.excerpt_vi)) || ''
   const image = post.og_image_url || post.cover_image_url
 
+  // Layout đã có title template '%s | Viện ASTRI' — không tự thêm hậu tố
   return {
-    title: `${title} | Viện ASTRI`,
+    title,
     description,
     openGraph: {
-      title: `${title} | Viện ASTRI`,
+      title,
       description,
       type: 'article',
       publishedTime: post.published_at ?? undefined,
@@ -39,7 +40,7 @@ export async function generateMetadata({
     },
     twitter: {
       card: 'summary_large_image',
-      title: `${title} | Viện ASTRI`,
+      title,
       description,
       ...(image ? { images: [image] } : {}),
     },
