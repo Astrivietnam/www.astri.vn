@@ -305,6 +305,6 @@ INSERT INTO admin_users (email, name, role, password_hash) VALUES
     'hoangcd@astri.vn',
     'Hoàng Công Danh',
     'super_admin',
-    '$2a$12$LQv3c1yqBWVHxkd0LHAkCOYz6TtxMQyCMc8bsWUFkNnnrW8JtVcFW'
+    '$2b$12$7lRnlTa3QSsj.Hi9Qz9g4.qdK1S97sX2rlGoH/zPFQUA4l8HU1uw6'
   )
 ON CONFLICT (email) DO NOTHING;

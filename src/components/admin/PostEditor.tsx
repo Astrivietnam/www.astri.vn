@@ -9,7 +9,7 @@ import Placeholder from '@tiptap/extension-placeholder'
 import {
   Bold, Italic, Heading1, Heading2, Heading3,
   List, ListOrdered, Quote, Link2, ImageIcon,
-  Undo2, Redo2, ChevronDown, ChevronUp, X,
+  Undo2, Redo2, ChevronDown, ChevronUp, X, Upload, Loader2,
 } from 'lucide-react'
 import type { Post, Category } from '@/lib/supabase'
 
@@ -94,11 +94,25 @@ function EditorToolbar({ editor }: { editor: ReturnType<typeof useEditor> }) {
     }
   }
 
-  function addImage() {
-    const url = window.prompt('URL hình ảnh:')
-    if (url) {
-      editor.chain().focus().setImage({ src: url }).run()
+  async function addImage() {
+    const input = document.createElement('input')
+    input.type = 'file'
+    input.accept = 'image/*'
+    input.onchange = async () => {
+      const file = input.files?.[0]
+      if (!file) return
+      const fd = new FormData()
+      fd.append('file', file)
+      try {
+        const res = await fetch('/api/admin/media/upload', { method: 'POST', body: fd })
+        const data = await res.json()
+        if (data.url) editor.chain().focus().setImage({ src: data.url }).run()
+        else alert(data.error || 'Upload thất bại')
+      } catch {
+        alert('Lỗi upload ảnh')
+      }
     }
+    input.click()
   }
 
   return (
@@ -253,6 +267,133 @@ function TagsInput({ tags, onChange }: { tags: string[]; onChange: (t: string[])
         </button>
       </div>
     </div>
+  )
+}
+
+// ---------------------------------------------------------------------------
+// Cover image with R2 upload
+// ---------------------------------------------------------------------------
+
+function CoverImageField({ value, onChange }: { value: string; onChange: (url: string) => void }) {
+  const [uploading, setUploading] = useState(false)
+  const [uploadErr, setUploadErr] = useState('')
+
+  async function handleFile(file: File) {
+    setUploadErr('')
+    setUploading(true)
+    try {
+      const fd = new FormData()
+      fd.append('file', file)
+      const res = await fetch('/api/admin/media/upload', { method: 'POST', body: fd })
+      const data = await res.json()
+      if (data.url) onChange(data.url)
+      else setUploadErr(data.error || 'Upload thất bại')
+    } catch {
+      setUploadErr('Lỗi kết nối')
+    } finally {
+      setUploading(false)
+    }
+  }
+
+  function pickFile() {
+    const input = document.createElement('input')
+    input.type = 'file'
+    input.accept = 'image/*'
+    input.onchange = () => { if (input.files?.[0]) handleFile(input.files[0]) }
+    input.click()
+  }
+
+  function handleDrop(e: React.DragEvent) {
+    e.preventDefault()
+    const file = e.dataTransfer.files[0]
+    if (file?.type.startsWith('image/')) handleFile(file)
+  }
+
+  return (
+    <section
+      style={{
+        background: 'var(--surface)',
+        border: '1px solid var(--border)',
+        borderRadius: '12px',
+        padding: '1.25rem',
+      }}
+    >
+      <label style={labelStyle}>Ảnh bìa</label>
+
+      {value ? (
+        <div style={{ position: 'relative' }}>
+          <img
+            src={value}
+            alt="Preview"
+            style={{ width: '100%', borderRadius: '8px', objectFit: 'cover', maxHeight: '160px', display: 'block' }}
+            onError={e => { (e.target as HTMLImageElement).style.display = 'none' }}
+          />
+          <button
+            onClick={() => onChange('')}
+            style={{
+              position: 'absolute', top: '6px', right: '6px',
+              background: 'rgba(0,0,0,0.55)', border: 'none', borderRadius: '50%',
+              width: 24, height: 24, display: 'flex', alignItems: 'center', justifyContent: 'center',
+              cursor: 'pointer', color: 'white',
+            }}
+          >
+            <X size={12} />
+          </button>
+          <button
+            onClick={pickFile}
+            disabled={uploading}
+            style={{
+              marginTop: '0.5rem', width: '100%', padding: '0.4rem',
+              borderRadius: '7px', border: '1px solid var(--border)',
+              background: 'var(--bg)', color: 'var(--text-2)',
+              fontSize: '0.78rem', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.3rem',
+            }}
+          >
+            {uploading ? <Loader2 size={12} className="animate-spin" /> : <Upload size={12} />}
+            {uploading ? 'Đang tải lên...' : 'Thay ảnh'}
+          </button>
+        </div>
+      ) : (
+        <div
+          onDrop={handleDrop}
+          onDragOver={e => e.preventDefault()}
+          onClick={pickFile}
+          style={{
+            border: '2px dashed var(--border)',
+            borderRadius: '10px',
+            padding: '1.5rem 1rem',
+            textAlign: 'center',
+            cursor: 'pointer',
+            background: 'var(--bg)',
+            transition: 'border-color 0.15s',
+          }}
+          onMouseEnter={e => (e.currentTarget.style.borderColor = 'var(--green-500)')}
+          onMouseLeave={e => (e.currentTarget.style.borderColor = 'var(--border)')}
+        >
+          {uploading ? (
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.5rem' }}>
+              <Loader2 size={24} className="animate-spin" style={{ color: 'var(--green-600)' }} />
+              <span style={{ fontSize: '0.8rem', color: 'var(--text-3)' }}>Đang tải lên R2...</span>
+            </div>
+          ) : (
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.4rem' }}>
+              <Upload size={22} style={{ color: 'var(--text-3)' }} />
+              <span style={{ fontSize: '0.82rem', fontWeight: 600, color: 'var(--text-2)' }}>Chọn hoặc kéo thả ảnh</span>
+              <span style={{ fontSize: '0.72rem', color: 'var(--text-3)' }}>PNG, JPG, WebP · tối đa 10MB</span>
+            </div>
+          )}
+        </div>
+      )}
+
+      {/* URL fallback */}
+      <input
+        style={{ ...inputStyle, marginTop: '0.5rem', fontSize: '0.8rem' }}
+        value={value}
+        onChange={e => onChange(e.target.value)}
+        placeholder="hoặc dán URL ảnh..."
+      />
+      {uploadErr && <p style={{ fontSize: '0.75rem', color: '#dc2626', marginTop: '0.3rem' }}>{uploadErr}</p>}
+    </section>
   )
 }
 
@@ -574,30 +715,7 @@ export default function PostEditor({ post, locale, categories, onSave, onSaveAsD
         </section>
 
         {/* Cover image */}
-        <section
-          style={{
-            background: 'var(--surface)',
-            border: '1px solid var(--border)',
-            borderRadius: '12px',
-            padding: '1.25rem',
-          }}
-        >
-          <label style={labelStyle}>Ảnh bìa (URL)</label>
-          <input
-            style={inputStyle}
-            value={form.cover_image_url}
-            onChange={e => set('cover_image_url', e.target.value)}
-            placeholder="https://..."
-          />
-          {form.cover_image_url && (
-            <img
-              src={form.cover_image_url}
-              alt="Preview"
-              style={{ width: '100%', marginTop: '0.6rem', borderRadius: '8px', objectFit: 'cover', maxHeight: '140px' }}
-              onError={e => { (e.target as HTMLImageElement).style.display = 'none' }}
-            />
-          )}
-        </section>
+        <CoverImageField value={form.cover_image_url} onChange={v => set('cover_image_url', v)} />
 
         {/* Tags */}
         <section

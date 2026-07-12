@@ -3,6 +3,11 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
+import {
+  LayoutDashboard, FileText, FileStack, Tag, FolderOpen,
+  Image, Users, Settings, LogOut, ExternalLink, Menu, X,
+  MessageSquare, UserCircle,
+} from 'lucide-react'
 import type { AdminTokenPayload } from '@/lib/auth'
 
 interface AdminLayoutProps {
@@ -22,7 +27,7 @@ const SIDEBAR_WIDTH = 240
 type NavItem = {
   label: string
   href: string
-  icon: string
+  icon: React.ReactNode
 }
 
 type NavGroup = {
@@ -33,29 +38,35 @@ type NavGroup = {
 const NAV_GROUPS: NavGroup[] = [
   {
     title: 'Tổng quan',
-    items: [{ label: 'Dashboard', href: '/admin/dashboard', icon: '⊞' }],
+    items: [{ label: 'Dashboard', href: '/admin/dashboard', icon: <LayoutDashboard size={16} /> }],
   },
   {
     title: 'Nội dung',
     items: [
-      { label: 'Bài viết', href: '/admin/posts', icon: '✎' },
-      { label: 'Trang', href: '/admin/pages', icon: '□' },
-      { label: 'Chuyên mục', href: '/admin/categories', icon: '⊟' },
-      { label: 'Tags', href: '/admin/tags', icon: '#' },
+      { label: 'Bài viết', href: '/admin/posts', icon: <FileText size={16} /> },
+      { label: 'Trang tĩnh', href: '/admin/pages', icon: <FileStack size={16} /> },
+      { label: 'Chuyên mục', href: '/admin/categories', icon: <FolderOpen size={16} /> },
+      { label: 'Tags', href: '/admin/tags', icon: <Tag size={16} /> },
     ],
   },
   {
     title: 'Tài nguyên',
     items: [
-      { label: 'Thư viện Media', href: '/admin/media', icon: '⊡' },
-      { label: 'Nhân sự', href: '/admin/staff', icon: '◎' },
+      { label: 'Thư viện Media', href: '/admin/media', icon: <Image size={16} /> },
+      { label: 'Nhân sự', href: '/admin/staff', icon: <UserCircle size={16} /> },
+    ],
+  },
+  {
+    title: 'Liên hệ',
+    items: [
+      { label: 'Form liên hệ', href: '/admin/contacts', icon: <MessageSquare size={16} /> },
     ],
   },
   {
     title: 'Hệ thống',
     items: [
-      { label: 'Người dùng', href: '/admin/users', icon: '⊙' },
-      { label: 'Cài đặt', href: '/admin/settings', icon: '⚙' },
+      { label: 'Người dùng', href: '/admin/users', icon: <Users size={16} /> },
+      { label: 'Cài đặt', href: '/admin/settings', icon: <Settings size={16} /> },
     ],
   },
 ]
@@ -111,7 +122,7 @@ function NavLink({
         }
       }}
     >
-      <span style={{ fontSize: '16px', width: '20px', textAlign: 'center', flexShrink: 0 }}>
+      <span style={{ width: '20px', textAlign: 'center', flexShrink: 0, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
         {item.icon}
       </span>
       {item.label}
@@ -267,7 +278,7 @@ export default function AdminLayout({ children, locale, user }: AdminLayoutProps
             ;(e.currentTarget as HTMLAnchorElement).style.color = INACTIVE_TEXT
           }}
         >
-          <span style={{ fontSize: '16px', width: '20px', textAlign: 'center' }}>↗</span>
+          <span style={{ width: '20px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><ExternalLink size={15} /></span>
           Xem website
         </a>
       </nav>
@@ -300,7 +311,7 @@ export default function AdminLayout({ children, locale, user }: AdminLayoutProps
             ;(e.currentTarget as HTMLButtonElement).style.color = 'rgba(255,120,100,0.8)'
           }}
         >
-          <span style={{ fontSize: '16px', width: '20px', textAlign: 'center' }}>⏏</span>
+          <span style={{ width: '20px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><LogOut size={15} /></span>
           Đăng xuất
         </button>
       </div>
@@ -360,13 +371,13 @@ export default function AdminLayout({ children, locale, user }: AdminLayoutProps
             background: 'transparent',
             border: 'none',
             color: '#ffffff',
-            fontSize: '22px',
             cursor: 'pointer',
-            lineHeight: 1,
             padding: '4px',
+            display: 'flex',
+            alignItems: 'center',
           }}
         >
-          ☰
+          {sidebarOpen ? <X size={20} /> : <Menu size={20} />}
         </button>
         <span style={{ color: '#ffffff', fontWeight: '700', fontSize: '15px' }}>ASTRI CMS</span>
       </div>

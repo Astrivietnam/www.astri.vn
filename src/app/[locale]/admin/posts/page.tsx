@@ -17,9 +17,7 @@ export default async function AdminPostsPage({
       .from('posts')
       .select(`
         id, slug, title_vi, title_en, cover_image_url,
-        is_published, is_featured, published_at, created_at,
-        category_id, category,
-        categories ( slug, name_vi, name_en )
+        is_published, is_featured, published_at, created_at, category
       `)
       .order('created_at', { ascending: false }),
     supabase

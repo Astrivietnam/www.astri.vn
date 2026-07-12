@@ -6,6 +6,21 @@ import { Leaf, ArrowRight, ChevronLeft, ChevronRight, Search } from 'lucide-reac
 
 const PAGE_SIZE = 12
 
+const CATEGORY_GRADIENTS: Record<string, string> = {
+  research:   'linear-gradient(135deg, #0D4A1F 0%, #1A6B2F 100%)',
+  technology: 'linear-gradient(135deg, #0D2B4A 0%, #1A4A7A 100%)',
+  trade:      'linear-gradient(135deg, #3D2A0D 0%, #6B4A1A 100%)',
+  training:   'linear-gradient(135deg, #1A2B4A 0%, #2A4A6B 100%)',
+  farm:       'linear-gradient(135deg, #2A3D0D 0%, #4A6B1A 100%)',
+  oresoi:     'linear-gradient(135deg, #2D0D4A 0%, #4A1A6B 100%)',
+  product:    'linear-gradient(135deg, #1A3D2A 0%, #2A6B4A 100%)',
+  news:       'linear-gradient(135deg, #0D2A1A 0%, #1A4A2A 100%)',
+}
+
+function categoryGradient(cat: string): string {
+  return CATEGORY_GRADIENTS[cat] ?? 'linear-gradient(135deg, #0D3320 0%, #1A6B2F 100%)'
+}
+
 function formatDate(iso: string | null, locale: string) {
   if (!iso) return ''
   const d = new Date(iso)
@@ -15,11 +30,16 @@ function formatDate(iso: string | null, locale: string) {
 }
 
 async function getCategories(): Promise<Category[]> {
-  const { data } = await supabase
-    .from('categories')
-    .select('id, slug, name_vi, name_en, sort_order, post_type')
-    .order('sort_order', { ascending: true })
-  return (data ?? []) as Category[]
+  try {
+    const { data, error } = await supabase
+      .from('categories')
+      .select('id, slug, name_vi, name_en, sort_order, post_type')
+      .order('sort_order', { ascending: true })
+    if (error) return []
+    return (data ?? []) as Category[]
+  } catch {
+    return []
+  }
 }
 
 async function getPosts(options: {
@@ -36,8 +56,7 @@ async function getPosts(options: {
     .select(
       `id, slug, title_vi, title_en, excerpt_vi, excerpt_en,
        cover_image_url, published_at, created_at,
-       category, category_id,
-       categories ( slug, name_vi, name_en )`,
+       category`,
       { count: 'exact' }
     )
     .eq('is_published', true)
@@ -212,11 +231,16 @@ export default async function NewsPage({
                 {posts.map((post) => {
                   const title = locale === 'vi' ? post.title_vi : (post.title_en ?? post.title_vi)
                   const excerpt = locale === 'vi' ? post.excerpt_vi : (post.excerpt_en ?? post.excerpt_vi)
-                  // Category label: prefer join result, fall back to text column
-                  const catData = (post as Post & { categories?: { name_vi: string; name_en: string } }).categories
-                  const catDisplayLabel = catData
-                    ? (locale === 'vi' ? catData.name_vi : (catData.name_en || catData.name_vi))
-                    : (post.category ?? '')
+                  const CAT_LABELS: Record<string, { vi: string; en: string }> = {
+                    research:   { vi: 'Nghiên cứu', en: 'Research' },
+                    technology: { vi: 'Công nghệ', en: 'Technology' },
+                    trade:      { vi: 'Hợp tác quốc tế', en: 'International' },
+                    training:   { vi: 'Đào tạo', en: 'Training' },
+                    farm:       { vi: 'Trang trại', en: 'Farm' },
+                    product:    { vi: 'Sản phẩm', en: 'Product' },
+                    news:       { vi: 'Sự kiện', en: 'Events' },
+                  }
+                  const catDisplayLabel = CAT_LABELS[post.category]?.[locale as 'vi' | 'en'] ?? post.category ?? ''
 
                   return (
                     <Link
@@ -228,7 +252,7 @@ export default async function NewsPage({
                       {/* Cover image */}
                       <div
                         className="aspect-video flex items-center justify-center overflow-hidden"
-                        style={{ background: 'var(--green-50)', flexShrink: 0 }}
+                        style={{ background: categoryGradient(post.category), flexShrink: 0 }}
                       >
                         {post.cover_image_url ? (
                           // eslint-disable-next-line @next/next/no-img-element
@@ -239,7 +263,7 @@ export default async function NewsPage({
                             style={{ transitionDuration: '400ms' }}
                           />
                         ) : (
-                          <Leaf size={36} style={{ color: 'var(--green-200)' }} />
+                          <Leaf size={36} style={{ color: 'rgba(141,198,63,0.5)' }} />
                         )}
                       </div>
 

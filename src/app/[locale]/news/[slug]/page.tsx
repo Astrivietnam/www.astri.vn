@@ -1,18 +1,55 @@
+import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import Header from '@/components/layout/Header'
 import Footer from '@/components/layout/Footer'
 import { supabase, type Post } from '@/lib/supabase'
-import { ArrowLeft, Calendar, Tag, Leaf, Eye, User, Home, ChevronRight, Printer, Link2 } from 'lucide-react'
+import { ArrowLeft, Calendar, Tag, Leaf, Eye, User, Home, ChevronRight } from 'lucide-react'
 import ShareButtons from './ShareButtons'
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string; slug: string }>
+}): Promise<Metadata> {
+  const { locale, slug } = await params
+  const { data: post } = await supabase
+    .from('posts')
+    .select('title_vi, title_en, excerpt_vi, excerpt_en, seo_title, seo_description, og_image_url, cover_image_url, published_at')
+    .eq('slug', slug)
+    .eq('is_published', true)
+    .single()
+
+  if (!post) return {}
+
+  const isVi = locale === 'vi'
+  const title = post.seo_title || (isVi ? post.title_vi : (post.title_en ?? post.title_vi))
+  const description = post.seo_description || (isVi ? post.excerpt_vi : (post.excerpt_en ?? post.excerpt_vi)) || ''
+  const image = post.og_image_url || post.cover_image_url
+
+  return {
+    title: `${title} | Viện ASTRI`,
+    description,
+    openGraph: {
+      title: `${title} | Viện ASTRI`,
+      description,
+      type: 'article',
+      publishedTime: post.published_at ?? undefined,
+      ...(image ? { images: [{ url: image, width: 1200, height: 630 }] } : {}),
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: `${title} | Viện ASTRI`,
+      description,
+      ...(image ? { images: [image] } : {}),
+    },
+  }
+}
 
 async function getPost(slug: string): Promise<Post | null> {
   const { data } = await supabase
     .from('posts')
-    .select(`
-      *,
-      categories ( slug, name_vi, name_en )
-    `)
+    .select('*')
     .eq('slug', slug)
     .eq('is_published', true)
     .single()
@@ -64,12 +101,9 @@ export default async function PostPage({
   const title = locale === 'vi' ? post.title_vi : (post.title_en ?? post.title_vi)
   const content = locale === 'vi' ? post.content_vi : (post.content_en ?? post.content_vi)
 
-  // Category label
-  const catData = (post as Post & { categories?: { name_vi: string; name_en: string; slug: string } | null }).categories
-  const catLabel = catData
-    ? (locale === 'vi' ? catData.name_vi : (catData.name_en || catData.name_vi))
-    : (post.category ?? '')
-  const catSlug = catData?.slug ?? post.category ?? ''
+  // Category label — fetch separately if we have category_id
+  const catLabel = post.category ?? ''
+  const catSlug = post.category ?? ''
 
   const formattedDate = post.published_at
     ? new Date(post.published_at).toLocaleDateString(
@@ -78,8 +112,33 @@ export default async function PostPage({
       )
     : ''
 
+  const siteUrl = 'https://new.astri.vn'
+  const articleUrl = `${siteUrl}/${locale}/news/${post.slug}`
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'NewsArticle',
+    headline: title,
+    description: locale === 'vi' ? post.excerpt_vi ?? '' : (post.excerpt_en ?? post.excerpt_vi ?? ''),
+    url: articleUrl,
+    datePublished: post.published_at,
+    dateModified: post.published_at,
+    author: { '@type': 'Organization', name: 'Viện ASTRI', url: siteUrl },
+    publisher: {
+      '@type': 'Organization',
+      name: 'Viện Nghiên cứu Công nghệ Hỗ trợ Nông nghiệp (ASTRI)',
+      url: siteUrl,
+      logo: { '@type': 'ImageObject', url: `${siteUrl}/logo.png` },
+    },
+    ...(post.cover_image_url ? { image: post.cover_image_url } : {}),
+    inLanguage: locale === 'vi' ? 'vi-VN' : 'en-US',
+  }
+
   return (
     <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <Header locale={locale} />
       <main style={{ flex: 1, paddingTop: '4rem' }}>
 
@@ -192,9 +251,27 @@ export default async function PostPage({
             {/* Article content */}
             <div>
               <article>
-                {content ? (
+                <style>{`
+                .article-body h2 { font-size: 1.4rem; font-weight: 700; color: var(--text-1); margin: 2rem 0 0.75rem; letter-spacing: -0.02em; line-height: 1.3; }
+                .article-body h3 { font-size: 1.15rem; font-weight: 600; color: var(--text-1); margin: 1.5rem 0 0.5rem; }
+                .article-body p { margin: 0 0 1.1rem; }
+                .article-body ul, .article-body ol { padding-left: 1.5rem; margin: 0.75rem 0 1.25rem; }
+                .article-body li { margin-bottom: 0.4rem; }
+                .article-body strong { font-weight: 700; color: var(--text-1); }
+                .article-body em { font-style: italic; color: var(--text-3); font-size: 0.92rem; }
+                .article-body blockquote { border-left: 3px solid var(--green-500); padding: 0.75rem 1rem; margin: 1.5rem 0; background: var(--green-50); border-radius: 0 8px 8px 0; }
+                .article-body blockquote p { margin: 0; color: var(--green-800); font-style: italic; }
+                .article-body img { max-width: 100%; border-radius: 10px; margin: 1.5rem 0; }
+                .article-body a { color: var(--green-700); text-decoration: underline; text-underline-offset: 2px; }
+                .article-body code { background: var(--surface-2); padding: 0.1em 0.4em; border-radius: 4px; font-size: 0.875em; }
+                @media (prefers-color-scheme: dark) {
+                  .article-body blockquote { background: rgba(34,197,94,0.06); }
+                  .article-body blockquote p { color: var(--green-300); }
+                }
+              `}</style>
+              {content ? (
                   <div
-                    className="prose prose-lg"
+                    className="article-body"
                     style={{ color: 'var(--text-2)', lineHeight: 1.85, fontSize: '1rem' }}
                     dangerouslySetInnerHTML={{ __html: content }}
                   />

@@ -50,6 +50,21 @@ const CATEGORY_LABELS: Record<string, { vi: string; en: string }> = {
   news:       { vi: 'Sự kiện',           en: 'Events' },
 }
 
+const CATEGORY_GRADIENTS: Record<string, string> = {
+  research:   'linear-gradient(135deg, #0D4A1F 0%, #1A6B2F 100%)',
+  technology: 'linear-gradient(135deg, #0D2B4A 0%, #1A4A7A 100%)',
+  trade:      'linear-gradient(135deg, #3D2A0D 0%, #6B4A1A 100%)',
+  training:   'linear-gradient(135deg, #1A2B4A 0%, #2A4A6B 100%)',
+  farm:       'linear-gradient(135deg, #2A3D0D 0%, #4A6B1A 100%)',
+  oresoi:     'linear-gradient(135deg, #2D0D4A 0%, #4A1A6B 100%)',
+  product:    'linear-gradient(135deg, #1A3D2A 0%, #2A6B4A 100%)',
+  news:       'linear-gradient(135deg, #0D2A1A 0%, #1A4A2A 100%)',
+}
+
+function categoryGradient(cat: string): string {
+  return CATEGORY_GRADIENTS[cat] ?? 'linear-gradient(135deg, #0D3320 0%, #1A6B2F 100%)'
+}
+
 function formatDate(iso: string | null, locale: string) {
   if (!iso) return ''
   const d = new Date(iso)
@@ -85,10 +100,8 @@ export default async function HomePage({
             minHeight: '100svh',
             display: 'flex',
             flexDirection: 'column',
-            alignItems: 'center',
             justifyContent: 'center',
-            textAlign: 'center',
-            padding: '6rem 1rem 8rem',
+            padding: '5rem 1rem 7rem',
             background: 'linear-gradient(160deg, #0D3320 0%, #1A6B2F 55%, #205F30 100%)',
             overflow: 'hidden',
           }}
@@ -119,116 +132,198 @@ export default async function HomePage({
             }}
           />
 
-          <div style={{ position: 'relative', maxWidth: '800px', margin: '0 auto' }}>
-            {/* Badge */}
-            <div
-              style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '0.5rem',
-                padding: '0.375rem 0.875rem',
-                borderRadius: '9999px',
-                fontSize: '0.8125rem',
-                fontWeight: 600,
-                letterSpacing: '0.04em',
-                textTransform: 'uppercase',
-                background: 'rgba(141,198,63,0.15)',
-                color: '#B8E07A',
-                border: '1px solid rgba(141,198,63,0.3)',
-                marginBottom: '1.75rem',
-              }}
-            >
-              <Leaf size={13} />
-              {vi
-                ? 'Viện Nghiên cứu Công nghệ Hỗ trợ Nông nghiệp'
-                : 'Agricultural Support & Technology Research Institute'}
+          {/* 2-column layout */}
+          <div
+            style={{
+              position: 'relative',
+              maxWidth: '80rem',
+              margin: '0 auto',
+              width: '100%',
+              display: 'grid',
+              gridTemplateColumns: 'minmax(0,1fr) minmax(0,480px)',
+              gap: '3rem',
+              alignItems: 'center',
+            }}
+            className="hero-grid"
+          >
+            {/* Left: text */}
+            <div>
+              {/* Badge */}
+              <div
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '0.5rem',
+                  padding: '0.375rem 0.875rem',
+                  borderRadius: '9999px',
+                  fontSize: '0.8125rem',
+                  fontWeight: 600,
+                  letterSpacing: '0.04em',
+                  textTransform: 'uppercase',
+                  background: 'rgba(141,198,63,0.15)',
+                  color: '#B8E07A',
+                  border: '1px solid rgba(141,198,63,0.3)',
+                  marginBottom: '1.75rem',
+                }}
+              >
+                <Leaf size={13} />
+                {vi ? 'Viện ASTRI' : 'ASTRI Institute'}
+              </div>
+
+              {/* Headline */}
+              <h1
+                style={{
+                  fontSize: 'clamp(2rem, 4.5vw, 3.25rem)',
+                  fontWeight: 800,
+                  lineHeight: 1.15,
+                  letterSpacing: '-0.03em',
+                  color: '#FFFFFF',
+                  marginBottom: '1.5rem',
+                }}
+              >
+                {vi ? (
+                  <>
+                    Nghiên cứu&nbsp;·&nbsp;Ứng dụng&nbsp;·&nbsp;
+                    <span style={{ color: '#8DC63F' }}>Chuyển giao</span>{' '}
+                    Công nghệ Nông nghiệp
+                  </>
+                ) : (
+                  <>
+                    Research&nbsp;·&nbsp;Application&nbsp;·&nbsp;
+                    <span style={{ color: '#8DC63F' }}>Transfer</span> of
+                    Agricultural Technologies
+                  </>
+                )}
+              </h1>
+
+              {/* Sub-headline */}
+              <p
+                style={{
+                  fontSize: 'clamp(1rem, 2vw, 1.125rem)',
+                  lineHeight: 1.75,
+                  color: 'rgba(255,255,255,0.72)',
+                  maxWidth: '540px',
+                  marginBottom: '2.5rem',
+                }}
+              >
+                {vi
+                  ? 'ASTRI kết nối khoa học với thực tiễn nông nghiệp — nghiên cứu bài bản, ứng dụng hiệu quả và chuyển giao công nghệ phù hợp với điều kiện Việt Nam.'
+                  : 'ASTRI bridges science with agricultural practice — rigorous research, effective application, and technology transfer adapted to Vietnamese conditions.'}
+              </p>
+
+              {/* CTAs — horizontal row */}
+              <div style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap', gap: '0.75rem' }}>
+                <Link
+                  href={`/${locale}/about`}
+                  style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '0.5rem',
+                    padding: '0.8125rem 1.75rem',
+                    borderRadius: '0.5rem',
+                    fontWeight: 700,
+                    fontSize: '0.9375rem',
+                    background: '#8DC63F',
+                    color: '#0D2B16',
+                    textDecoration: 'none',
+                    whiteSpace: 'nowrap',
+                  }}
+                >
+                  {vi ? 'Về chúng tôi' : 'About ASTRI'} <ArrowRight size={16} />
+                </Link>
+                <Link
+                  href={`/${locale}/contact`}
+                  style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '0.5rem',
+                    padding: '0.8125rem 1.75rem',
+                    borderRadius: '0.5rem',
+                    fontWeight: 700,
+                    fontSize: '0.9375rem',
+                    background: 'rgba(255,255,255,0.1)',
+                    color: '#FFFFFF',
+                    border: '1.5px solid rgba(255,255,255,0.28)',
+                    textDecoration: 'none',
+                    whiteSpace: 'nowrap',
+                  }}
+                >
+                  {vi ? 'Liên hệ hợp tác' : 'Partner with us'}
+                </Link>
+              </div>
             </div>
 
-            {/* Headline */}
-            <h1
-              style={{
-                fontSize: 'clamp(2rem, 5vw, 3.5rem)',
-                fontWeight: 800,
-                lineHeight: 1.15,
-                letterSpacing: '-0.03em',
-                color: '#FFFFFF',
-                marginBottom: '1.5rem',
-              }}
-            >
-              {vi ? (
-                <>
-                  Nghiên cứu&nbsp;·&nbsp;Ứng dụng&nbsp;·&nbsp;
-                  <span style={{ color: '#8DC63F' }}>Chuyển giao</span>{' '}
-                  Công nghệ Nông nghiệp
-                </>
-              ) : (
-                <>
-                  Research&nbsp;·&nbsp;Application&nbsp;·&nbsp;
-                  <span style={{ color: '#8DC63F' }}>Transfer</span> of
-                  Agricultural Technologies
-                </>
-              )}
-            </h1>
-
-            {/* Sub-headline */}
-            <p
-              style={{
-                fontSize: 'clamp(1rem, 2.5vw, 1.2rem)',
-                lineHeight: 1.75,
-                color: 'rgba(255,255,255,0.72)',
-                maxWidth: '620px',
-                margin: '0 auto 2.5rem',
-              }}
-            >
-              {vi
-                ? 'ASTRI kết nối khoa học với thực tiễn nông nghiệp — nghiên cứu bài bản, ứng dụng hiệu quả và chuyển giao công nghệ phù hợp với điều kiện Việt Nam.'
-                : 'ASTRI bridges science with agricultural practice — rigorous research, effective application, and technology transfer adapted to Vietnamese conditions.'}
-            </p>
-
-            {/* CTAs */}
+            {/* Right: SVG molecular/agriculture illustration */}
             <div
-              style={{
-                display: 'flex',
-                flexWrap: 'wrap',
-                gap: '0.75rem',
-                justifyContent: 'center',
-              }}
+              aria-hidden
+              style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+              className="hero-illustration"
             >
-              <Link
-                href={`/${locale}/about`}
-                style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: '0.5rem',
-                  padding: '0.8125rem 1.75rem',
-                  borderRadius: '0.5rem',
-                  fontWeight: 700,
-                  fontSize: '0.9375rem',
-                  background: '#8DC63F',
-                  color: '#0D2B16',
-                  transition: 'filter 0.15s',
-                }}
+              <svg
+                viewBox="0 0 480 480"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                style={{ width: '100%', maxWidth: '420px', opacity: 0.92 }}
               >
-                {vi ? 'Về chúng tôi' : 'About ASTRI'} <ArrowRight size={16} />
-              </Link>
-              <Link
-                href={`/${locale}/contact`}
-                style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: '0.5rem',
-                  padding: '0.8125rem 1.75rem',
-                  borderRadius: '0.5rem',
-                  fontWeight: 700,
-                  fontSize: '0.9375rem',
-                  background: 'rgba(255,255,255,0.1)',
-                  color: '#FFFFFF',
-                  border: '1.5px solid rgba(255,255,255,0.28)',
-                  transition: 'background 0.15s',
-                }}
-              >
-                {vi ? 'Liên hệ hợp tác' : 'Partner with us'}
-              </Link>
+                {/* Central hexagon */}
+                <polygon points="240,160 290,190 290,250 240,280 190,250 190,190" fill="rgba(141,198,63,0.18)" stroke="#8DC63F" strokeWidth="2"/>
+                {/* DNA/molecule nodes */}
+                <circle cx="240" cy="220" r="32" fill="rgba(141,198,63,0.22)" stroke="#8DC63F" strokeWidth="2.5"/>
+                <circle cx="240" cy="220" r="14" fill="#8DC63F" opacity="0.9"/>
+                {/* Orbiting nodes */}
+                <circle cx="150" cy="140" r="22" fill="rgba(141,198,63,0.12)" stroke="rgba(141,198,63,0.5)" strokeWidth="1.5"/>
+                <circle cx="150" cy="140" r="9" fill="rgba(141,198,63,0.7)"/>
+                <line x1="168" y1="152" x2="208" y2="200" stroke="rgba(141,198,63,0.4)" strokeWidth="1.5" strokeDasharray="4 4"/>
+
+                <circle cx="340" cy="130" r="22" fill="rgba(141,198,63,0.12)" stroke="rgba(141,198,63,0.5)" strokeWidth="1.5"/>
+                <circle cx="340" cy="130" r="9" fill="rgba(141,198,63,0.7)"/>
+                <line x1="320" y1="143" x2="272" y2="196" stroke="rgba(141,198,63,0.4)" strokeWidth="1.5" strokeDasharray="4 4"/>
+
+                <circle cx="360" cy="270" r="22" fill="rgba(141,198,63,0.12)" stroke="rgba(141,198,63,0.5)" strokeWidth="1.5"/>
+                <circle cx="360" cy="270" r="9" fill="rgba(141,198,63,0.7)"/>
+                <line x1="338" y1="268" x2="272" y2="240" stroke="rgba(141,198,63,0.4)" strokeWidth="1.5" strokeDasharray="4 4"/>
+
+                <circle cx="240" cy="320" r="22" fill="rgba(141,198,63,0.12)" stroke="rgba(141,198,63,0.5)" strokeWidth="1.5"/>
+                <circle cx="240" cy="320" r="9" fill="rgba(141,198,63,0.7)"/>
+                <line x1="240" y1="298" x2="240" y2="252" stroke="rgba(141,198,63,0.4)" strokeWidth="1.5" strokeDasharray="4 4"/>
+
+                <circle cx="120" cy="270" r="22" fill="rgba(141,198,63,0.12)" stroke="rgba(141,198,63,0.5)" strokeWidth="1.5"/>
+                <circle cx="120" cy="270" r="9" fill="rgba(141,198,63,0.7)"/>
+                <line x1="142" y1="268" x2="208" y2="240" stroke="rgba(141,198,63,0.4)" strokeWidth="1.5" strokeDasharray="4 4"/>
+
+                {/* Outer ring dots */}
+                {[0,60,120,180,240,300].map((deg, i) => {
+                  const rad = (deg * Math.PI) / 180
+                  const cx = 240 + 160 * Math.cos(rad)
+                  const cy = 220 + 160 * Math.sin(rad)
+                  return <circle key={i} cx={cx} cy={cy} r="5" fill="rgba(141,198,63,0.35)"/>
+                })}
+                {/* Outer ring */}
+                <circle cx="240" cy="220" r="160" stroke="rgba(141,198,63,0.12)" strokeWidth="1" fill="none" strokeDasharray="6 6"/>
+
+                {/* Leaf motif top-right */}
+                <path d="M370 60 Q410 40 420 80 Q400 100 370 60Z" fill="rgba(141,198,63,0.25)" stroke="rgba(141,198,63,0.5)" strokeWidth="1"/>
+                <path d="M370 60 Q395 70 420 80" stroke="rgba(141,198,63,0.6)" strokeWidth="1" fill="none"/>
+
+                {/* Leaf motif bottom-left */}
+                <path d="M80 370 Q60 410 100 420 Q110 390 80 370Z" fill="rgba(141,198,63,0.2)" stroke="rgba(141,198,63,0.4)" strokeWidth="1"/>
+
+                {/* Data flow lines */}
+                <path d="M60 180 Q120 160 150 140" stroke="rgba(255,255,255,0.08)" strokeWidth="1" fill="none"/>
+                <path d="M420 360 Q390 310 360 270" stroke="rgba(255,255,255,0.08)" strokeWidth="1" fill="none"/>
+
+                {/* IoT waves around center */}
+                <circle cx="240" cy="220" r="50" stroke="rgba(141,198,63,0.15)" strokeWidth="1" fill="none"/>
+                <circle cx="240" cy="220" r="75" stroke="rgba(141,198,63,0.10)" strokeWidth="1" fill="none"/>
+                <circle cx="240" cy="220" r="100" stroke="rgba(141,198,63,0.06)" strokeWidth="1" fill="none"/>
+
+                {/* Labels */}
+                <text x="136" y="136" textAnchor="middle" fill="rgba(255,255,255,0.6)" fontSize="9" fontFamily="system-ui">IoT</text>
+                <text x="340" y="126" textAnchor="middle" fill="rgba(255,255,255,0.6)" fontSize="9" fontFamily="system-ui">Lab</text>
+                <text x="360" y="266" textAnchor="middle" fill="rgba(255,255,255,0.6)" fontSize="9" fontFamily="system-ui">Farm</text>
+                <text x="240" y="316" textAnchor="middle" fill="rgba(255,255,255,0.6)" fontSize="9" fontFamily="system-ui">Data</text>
+                <text x="118" y="266" textAnchor="middle" fill="rgba(255,255,255,0.6)" fontSize="9" fontFamily="system-ui">Bio</text>
+              </svg>
             </div>
           </div>
 
@@ -293,6 +388,14 @@ export default async function HomePage({
               ))}
             </div>
           </div>
+
+          {/* Responsive: stack on mobile */}
+          <style>{`
+            @media (max-width: 768px) {
+              .hero-grid { grid-template-columns: 1fr !important; }
+              .hero-illustration { display: none !important; }
+            }
+          `}</style>
         </section>
 
         {/* ================================================================
@@ -391,8 +494,7 @@ export default async function HomePage({
                         <div
                           style={{
                             aspectRatio: '16/9',
-                            background:
-                              'linear-gradient(135deg, var(--green-900) 0%, var(--green-800) 100%)',
+                            background: categoryGradient(post.category),
                             position: 'relative',
                             overflow: 'hidden',
                           }}
@@ -795,7 +897,7 @@ export default async function HomePage({
               {[
                 {
                   Icon: CalendarDays,
-                  value: '2020',
+                  value: '2018',
                   label: vi ? 'Năm thành lập' : 'Founded',
                 },
                 {

@@ -32,7 +32,7 @@ export async function GET(request: NextRequest) {
       query = query.like('mime_type', 'image/%');
     }
     if (search) {
-      query = query.ilike('name', `%${search}%`);
+      query = query.ilike('file_name', `%${search}%`);
     }
 
     const { data: files, count, error } = await query;

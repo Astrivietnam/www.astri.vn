@@ -173,7 +173,7 @@ export default function CategoriesPage() {
     try {
       const res = await fetch('/api/admin/categories')
       const data = await res.json()
-      setCategories(data.categories ?? data ?? [])
+      setCategories(data.data ?? data.categories ?? [])
     } catch {
       setError('Không thể tải danh mục')
     } finally {

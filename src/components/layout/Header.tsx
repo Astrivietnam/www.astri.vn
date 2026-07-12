@@ -17,52 +17,53 @@ const NAV: NavItem[] = [
   {
     vi: 'Giới thiệu', en: 'About', href: '/about',
     children: [
-      { vi: 'Tổng quan về Viện', en: 'Overview', href: '/about' },
-      { vi: 'Lãnh đạo & Nhân sự', en: 'Leadership & Staff', href: '/about/staff' },
+      { vi: 'Tổng quan', en: 'Overview', href: '/about' },
+      { vi: 'Lãnh đạo', en: 'Leadership', href: '/about/staff' },
       { vi: 'Cơ cấu tổ chức', en: 'Organization', href: '/about/organization' },
-      { vi: 'Chức năng & Nhiệm vụ', en: 'Functions & Tasks', href: '/about/functions' },
+      { vi: 'Chức năng & Nhiệm vụ', en: 'Functions', href: '/about/functions' },
       { vi: 'Cơ sở vật chất', en: 'Facilities', href: '/about/facilities' },
     ],
   },
   {
     vi: 'Nghiên cứu', en: 'Research', href: '/research',
     children: [
-      { vi: 'Định hướng nghiên cứu', en: 'Research Directions', href: '/research' },
-      { vi: 'Đề tài & Dự án', en: 'Topics & Projects', href: '/research/projects' },
-      { vi: 'Kết quả nghiên cứu', en: 'Research Results', href: '/research/results' },
+      { vi: 'Định hướng', en: 'Directions', href: '/research' },
+      { vi: 'Đề tài & Dự án', en: 'Projects', href: '/research/projects' },
+      { vi: 'Kết quả', en: 'Results', href: '/research/results' },
       { vi: 'Công bố khoa học', en: 'Publications', href: '/research/publications' },
+      { vi: 'Tạp chí STNN', en: 'STNN Journal', href: '/journal' },
     ],
   },
   {
     vi: 'Công nghệ', en: 'Technology', href: '/technology',
     children: [
-      { vi: 'Ứng dụng IoT & Blockchain', en: 'IoT & Blockchain', href: '/technology' },
-      { vi: 'Chuyển giao công nghệ', en: 'Technology Transfer', href: '/technology/transfer' },
-      { vi: 'Tư vấn & Dịch vụ', en: 'Consulting & Services', href: '/technology/services' },
+      { vi: 'IoT & Blockchain', en: 'IoT & Blockchain', href: '/technology' },
+      { vi: 'Chuyển giao', en: 'Transfer', href: '/technology/transfer' },
+      { vi: 'Tư vấn & Dịch vụ', en: 'Services', href: '/technology/services' },
     ],
   },
   {
     vi: 'Đào tạo', en: 'Training', href: '/training',
     children: [
-      { vi: 'Chương trình đào tạo', en: 'Programs', href: '/training' },
-      { vi: 'Tập huấn kỹ thuật', en: 'Technical Training', href: '/training/technical' },
-      { vi: 'Hội thảo & Sự kiện', en: 'Workshops & Events', href: '/training/workshops' },
+      { vi: 'Chương trình', en: 'Programs', href: '/training' },
+      { vi: 'Tập huấn kỹ thuật', en: 'Technical', href: '/training/technical' },
+      { vi: 'Hội thảo & Sự kiện', en: 'Workshops', href: '/training/workshops' },
     ],
   },
   {
     vi: 'Hợp tác', en: 'Cooperation', href: '/cooperation',
     children: [
-      { vi: 'Hợp tác quốc tế', en: 'International Cooperation', href: '/cooperation' },
-      { vi: 'Đối tác doanh nghiệp', en: 'Business Partners', href: '/cooperation/partners' },
-      { vi: 'Xúc tiến thương mại', en: 'Trade Promotion', href: '/trade' },
+      { vi: 'Quốc tế', en: 'International', href: '/cooperation' },
+      { vi: 'Đối tác', en: 'Partners', href: '/cooperation/partners' },
+      { vi: 'Thương mại', en: 'Trade', href: '/trade' },
     ],
   },
   {
     vi: 'Sản phẩm', en: 'Products', href: '/products',
     children: [
-      { vi: 'Phân bón hữu cơ vi sinh', en: 'Organic Fertilizers', href: '/products/fertilizer' },
+      { vi: 'Phân bón vi sinh', en: 'Bio-Fertilizer', href: '/products/fertilizer' },
       { vi: 'Trang trại Bình Dương', en: 'Binh Duong Farm', href: '/farm' },
-      { vi: 'Tinh dầu Oresoi', en: 'Oresoi Essential Oils', href: '/oresoi' },
+      { vi: 'Tinh dầu Oresoi', en: 'Oresoi Oils', href: '/oresoi' },
     ],
   },
   { vi: 'Tin tức', en: 'News', href: '/news' },
@@ -111,6 +112,7 @@ export default function Header({ locale }: { locale: string }) {
     if (dropdownTimeout.current) clearTimeout(dropdownTimeout.current)
   }
 
+  // Header luôn solid — chữ tối trên nền trắng, đồng nhất mọi trang (không nhảy màu)
   const bgStyle: React.CSSProperties = {
     position: 'fixed',
     top: 0, left: 0, right: 0,
@@ -118,15 +120,15 @@ export default function Header({ locale }: { locale: string }) {
     height: '60px',
     display: 'flex',
     alignItems: 'center',
-    transition: 'background 0.2s, box-shadow 0.2s',
-    background: scrolled ? 'rgba(255,255,255,0.97)' : 'rgba(255,255,255,0)',
-    backdropFilter: scrolled ? 'blur(8px)' : 'none',
-    boxShadow: scrolled ? '0 1px 0 rgba(0,0,0,0.08)' : 'none',
+    transition: 'box-shadow 0.2s',
+    background: 'rgba(255,255,255,0.97)',
+    backdropFilter: 'blur(8px)',
+    boxShadow: scrolled ? '0 2px 12px rgba(15,31,18,0.08)' : '0 1px 0 rgba(15,31,18,0.06)',
   }
 
-  const logoColor = scrolled ? '#1A6B2F' : '#1A6B2F'
-  const textColor = scrolled ? '#0F1F12' : '#0F1F12'
-  const textMuted = scrolled ? '#3A5040' : '#3A5040'
+  const logoColor = '#1A6B2F'
+  const textColor = '#0F1F12'
+  const textMuted = '#3A5040'
 
   return (
     <>

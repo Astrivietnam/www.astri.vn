@@ -13,6 +13,10 @@ export default async function Layout({
   const cookieStore = await cookies()
   const user = await getAdminSession(cookieStore)
 
+  if (!user) {
+    return <>{children}</>
+  }
+
   return (
     <AdminLayout locale={locale} user={user}>
       {children}
