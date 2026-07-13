@@ -263,6 +263,9 @@ export default async function PostPage({
                 .article-body blockquote { border-left: 3px solid var(--green-500); padding: 0.75rem 1rem; margin: 1.5rem 0; background: var(--green-50); border-radius: 0 8px 8px 0; }
                 .article-body blockquote p { margin: 0; color: var(--green-800); font-style: italic; }
                 .article-body img { max-width: 100%; border-radius: 10px; margin: 1.5rem 0; }
+                .article-body figure { margin: 1.75rem 0; }
+                .article-body figure img { margin: 0 0 0.5rem; }
+                .article-body figcaption { font-size: 0.82rem; color: var(--text-3); text-align: center; font-style: italic; }
                 .article-body a { color: var(--green-700); text-decoration: underline; text-underline-offset: 2px; }
                 .article-body code { background: var(--surface-2); padding: 0.1em 0.4em; border-radius: 4px; font-size: 0.875em; }
                 @media (prefers-color-scheme: dark) {
