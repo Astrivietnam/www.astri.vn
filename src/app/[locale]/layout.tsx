@@ -28,6 +28,13 @@ export const metadata: Metadata = {
   description:
     'Viện Nghiên cứu Công nghệ Hỗ trợ Nông nghiệp (ASTRI) — nghiên cứu, ứng dụng và chuyển giao công nghệ phục vụ nông nghiệp bền vững Việt Nam.',
   metadataBase: new URL('https://www.astri.vn'),
+  icons: {
+    icon: [
+      { url: '/logo-mark.svg', type: 'image/svg+xml' },
+      { url: '/favicon.ico' },
+    ],
+    apple: '/logo-mark.svg',
+  },
 }
 
 export default async function LocaleLayout({

@@ -33,14 +33,9 @@ export default function Footer({ locale }: { locale: string }) {
 
           {/* Brand + contact */}
           <div className="lg:col-span-2">
-            <div className="flex items-center gap-2.5 mb-3">
-              <div
-                className="w-9 h-9 rounded flex items-center justify-center text-white font-black"
-                style={{ background: 'var(--green-800)' }}
-              >
-                A
-              </div>
-              <span className="font-bold text-lg text-white">Viện ASTRI</span>
+            <div className="mb-3">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src="/logo-astri-light.svg" alt="Viện ASTRI" style={{ height: 40, width: 'auto' }} />
             </div>
             <p className="text-sm mb-1" style={{ color: 'var(--green-200)' }}>
               {vi ? siteConfig.nameFull : siteConfig.nameEn}

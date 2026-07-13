@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 372 130" width="372" height="130">
+  <defs>
+    <linearGradient id="astriLeaf" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#8DC63F"/>
+      <stop offset="1" stop-color="#4E9D2D"/>
+    </linearGradient>
+  </defs>
+  <g fill="#1B7A3D">
+    <path d="M60 16 h26 l52 96 h-30 l-8.5 -17 h-45 l-8.5 17 h-30 Z"/>
+    <path d="M14 104 q34 -30 78 -20 q-40 -2 -70 26 Z" fill="#ffffff"/>
+    <path d="M73 54 l-12 26 h24 Z" fill="#ffffff"/>
+  </g>
+  <text x="142" y="112" font-family="Arial, Helvetica, sans-serif" font-weight="900" font-size="104" fill="#1B7A3D" letter-spacing="-4">stri</text>
+  <g transform="translate(322,8)">
+    <path d="M10 0 C 24 12, 24 34, 10 46 C -4 34, -4 12, 10 0 Z" fill="url(#astriLeaf)"/>
+    <path d="M10 20 C 18 26, 18 40, 10 46 C 2 40, 2 26, 10 20 Z" fill="#3E8B24" opacity="0.5"/>
+    <g fill="#8DC63F">
+      <path d="M-2 52 l12 8 l12 -8 v6 l-12 8 l-12 -8 Z"/>
+      <path d="M-2 64 l12 8 l12 -8 v6 l-12 8 l-12 -8 Z"/>
+      <path d="M-2 76 l12 8 l12 -8 v6 l-12 8 l-12 -8 Z"/>
+    </g>
+  </g>
+</svg>

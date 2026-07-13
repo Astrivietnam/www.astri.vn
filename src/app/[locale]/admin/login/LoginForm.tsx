@@ -44,31 +44,8 @@ export default function LoginForm({ locale }: LoginFormProps) {
     <form onSubmit={handleSubmit} noValidate>
       {/* Logo */}
       <div style={{ textAlign: 'center', marginBottom: '1.75rem' }}>
-        <div
-          style={{
-            display: 'inline-flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            width: '56px',
-            height: '56px',
-            borderRadius: '50%',
-            background: 'linear-gradient(135deg, #1A6B2F, #24963f)',
-            marginBottom: '0.75rem',
-            boxShadow: '0 4px 16px rgba(26,107,47,0.35)',
-          }}
-        >
-          <span
-            style={{
-              color: '#ffffff',
-              fontSize: '1.75rem',
-              fontWeight: 800,
-              fontFamily: 'Georgia, serif',
-              lineHeight: 1,
-            }}
-          >
-            A
-          </span>
-        </div>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src="/logo-astri.svg" alt="Viện ASTRI" style={{ height: 48, width: 'auto', marginBottom: '0.75rem' }} />
         <div>
           <p
             style={{

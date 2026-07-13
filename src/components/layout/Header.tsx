@@ -135,15 +135,11 @@ export default function Header({ locale }: { locale: string }) {
       <header style={bgStyle}>
         <div className="max-w-7xl mx-auto px-4" style={{ width: '100%', display: 'flex', alignItems: 'center', gap: '1rem' }}>
           {/* Logo */}
-          <Link href={href('/')} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', textDecoration: 'none', flexShrink: 0 }}>
-            <div style={{
-              width: 32, height: 32, borderRadius: '8px',
-              background: '#1A6B2F', color: '#fff',
-              display: 'flex', alignItems: 'center', justifyContent: 'center',
-              fontWeight: 800, fontSize: '1rem', letterSpacing: '-0.02em',
-            }}>A</div>
-            <span style={{ fontWeight: 700, fontSize: '0.95rem', color: logoColor, letterSpacing: '-0.01em' }}>
-              Viện ASTRI
+          <Link href={href('/')} style={{ display: 'flex', alignItems: 'center', gap: '0.55rem', textDecoration: 'none', flexShrink: 0 }}>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/logo-astri.svg" alt="Viện ASTRI" style={{ height: 34, width: 'auto', display: 'block' }} />
+            <span style={{ fontWeight: 600, fontSize: '0.8rem', color: logoColor, letterSpacing: '-0.01em', borderLeft: '1px solid #D4E4D7', paddingLeft: '0.55rem', lineHeight: 1.15, maxWidth: 150 }}>
+              Viện Nghiên cứu Công nghệ<br/>Hỗ trợ Nông nghiệp
             </span>
           </Link>
 
