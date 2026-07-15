@@ -132,19 +132,31 @@ export default function Header({ locale }: { locale: string }) {
 
   return (
     <>
+      <style>{`
+        .astri-logo-name { font-size: 0.8rem; }
+        .astri-logo-name span { display: block; white-space: nowrap; }
+        @media (max-width: 480px) {
+          .astri-logo-img { height: 38px; }
+          .astri-logo-name { font-size: 0.6rem; padding-left: 0.4rem !important; }
+        }
+        @media (max-width: 360px) {
+          .astri-logo-name { display: none; }
+        }
+      `}</style>
       <header style={bgStyle}>
         <div className="max-w-7xl mx-auto px-4" style={{ width: '100%', display: 'flex', alignItems: 'center', gap: '1rem' }}>
           {/* Logo */}
-          <Link href={href('/')} style={{ display: 'flex', alignItems: 'center', gap: '0.55rem', textDecoration: 'none', flexShrink: 0 }}>
+          <Link href={href('/')} className="astri-logo" style={{ display: 'flex', alignItems: 'center', gap: '0.55rem', textDecoration: 'none', flexShrink: 0, minWidth: 0 }}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/logo-astri.png" alt="Viện ASTRI" style={{ height: 48, width: 'auto', display: 'block' }} />
-            <span style={{ fontWeight: 600, fontSize: '0.8rem', color: logoColor, letterSpacing: '-0.01em', borderLeft: '1px solid #D4E4D7', paddingLeft: '0.55rem', lineHeight: 1.15, maxWidth: 150 }}>
-              Viện Nghiên cứu Công nghệ<br/>Hỗ trợ Nông nghiệp
+            <img className="astri-logo-img" src="/logo-astri.png" alt="Viện ASTRI" style={{ height: 46, width: 'auto', display: 'block' }} />
+            <span className="astri-logo-name" style={{ fontWeight: 600, color: logoColor, letterSpacing: '-0.01em', borderLeft: '1px solid #D4E4D7', paddingLeft: '0.55rem', lineHeight: 1.2 }}>
+              <span>Viện Nghiên cứu Công nghệ</span>
+              <span>Hỗ trợ Nông nghiệp</span>
             </span>
           </Link>
 
           {/* Desktop nav */}
-          <nav style={{ display: 'flex', alignItems: 'center', gap: '0.1rem', flex: 1, justifyContent: 'center' }}
+          <nav style={{ alignItems: 'center', gap: '0.1rem', flex: 1, justifyContent: 'center' }}
             className="hidden lg:flex">
             {NAV.map(item => {
               const active = isActive(item)
