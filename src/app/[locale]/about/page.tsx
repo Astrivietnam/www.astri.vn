@@ -1,6 +1,6 @@
 import Header from '@/components/layout/Header'
 import Footer from '@/components/layout/Footer'
-import { CheckCircle2, Target, Eye, MapPin, Phone, Mail, Award, Users, Building2 } from 'lucide-react'
+import { CheckCircle2, Target, Eye, MapPin, Phone, Mail, Award, Users, Building2, FlaskConical, GraduationCap, Handshake, Globe2, Leaf, Lightbulb, Compass } from 'lucide-react'
 
 export default async function AboutPage({
   params,
@@ -116,8 +116,8 @@ export default async function AboutPage({
               </div>
               <p style={{ color: 'var(--text-2)', lineHeight: 1.75 }}>
                 {isVi
-                  ? 'Nghiên cứu, ứng dụng và chuyển giao các công nghệ tiên tiến nhằm nâng cao năng suất, chất lượng và giá trị gia tăng trong sản xuất nông nghiệp, góp phần phát triển nông nghiệp xanh, bền vững tại Việt Nam.'
-                  : 'To research, apply, and transfer advanced technologies to improve productivity, quality, and added value in agricultural production, contributing to green and sustainable agricultural development in Vietnam.'}
+                  ? 'ASTRI cam kết đóng góp tích cực vào sự phát triển của ngành nông nghiệp Việt Nam theo hướng hiện đại, bền vững và thịnh vượng.'
+                  : "ASTRI is committed to actively contributing to the development of Vietnam's agriculture toward modernization, sustainability and prosperity."}
               </p>
             </div>
 
@@ -132,15 +132,84 @@ export default async function AboutPage({
               </div>
               <p style={{ color: 'var(--text-2)', lineHeight: 1.75 }}>
                 {isVi
-                  ? 'Trở thành viện nghiên cứu hàng đầu trong lĩnh vực công nghệ nông nghiệp tại Việt Nam và khu vực Đông Nam Á, là cầu nối tin cậy giữa khoa học và thực tiễn sản xuất.'
-                  : 'To become the leading research institute in agricultural technology in Vietnam and Southeast Asia, serving as a trusted bridge between science and farming practice.'}
+                  ? 'Viện Nghiên cứu Công nghệ Hỗ trợ Nông nghiệp (ASTRI) phấn đấu trở thành trung tâm hàng đầu về nghiên cứu, phát triển và ứng dụng công nghệ tiên tiến trong lĩnh vực nông nghiệp tại Việt Nam, thúc đẩy phát triển ngành bền vững và nâng cao đời sống người dân.'
+                  : "ASTRI strives to become Vietnam's leading center for research, development and application of advanced agricultural technologies, promoting sustainable industry development and improving people's livelihoods."}
               </p>
             </div>
           </div>
         </section>
 
-        {/* Leadership */}
+        {/* Strategic Focus Areas */}
         <section className="py-16 px-4" style={{ background: 'var(--bg)' }}>
+          <div className="max-w-7xl mx-auto">
+            <div className="flex items-center gap-3 mb-8">
+              <Compass size={20} style={{ color: 'var(--green-600)' }} />
+              <h2 className="text-2xl font-bold" style={{ color: 'var(--text-1)', letterSpacing: '-0.02em' }}>
+                {isVi ? 'Định hướng chiến lược' : 'Strategic Focus Areas'}
+              </h2>
+            </div>
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              {[
+                {
+                  Icon: FlaskConical,
+                  title: isVi ? 'Nghiên cứu & Phát triển' : 'Research & Development',
+                  desc: isVi
+                    ? 'Tiên phong công nghệ sinh học, điện tử, CNTT, công nghệ nano và khoa học nông nghiệp với các giải pháp đột phá.'
+                    : 'Pioneering biotechnology, electronics, IT, nanotechnology and agricultural science with breakthrough solutions.',
+                },
+                {
+                  Icon: GraduationCap,
+                  title: isVi ? 'Chuyển giao Công nghệ & Đào tạo' : 'Technology Transfer & Training',
+                  desc: isVi
+                    ? 'Đưa kết quả nghiên cứu vào sản xuất và nâng cao năng lực qua các chương trình đào tạo chuyên nghiệp.'
+                    : 'Bringing research results into production and building capacity through professional training programs.',
+                },
+                {
+                  Icon: Handshake,
+                  title: isVi ? 'Tư vấn & Hỗ trợ' : 'Consulting & Support',
+                  desc: isVi
+                    ? 'Cung cấp chuyên môn phát triển mô hình nông nghiệp hiện đại, bền vững, thân thiện môi trường.'
+                    : 'Providing expertise to develop modern, sustainable and environmentally friendly agricultural models.',
+                },
+                {
+                  Icon: Globe2,
+                  title: isVi ? 'Hợp tác trong nước & Quốc tế' : 'Domestic & International Cooperation',
+                  desc: isVi
+                    ? 'Xây dựng quan hệ đối tác thúc đẩy nông nghiệp công nghệ cao.'
+                    : 'Building partnerships to advance high-tech agriculture.',
+                },
+                {
+                  Icon: Leaf,
+                  title: isVi ? 'Bảo vệ Môi trường' : 'Environmental Protection',
+                  desc: isVi
+                    ? 'Phát triển giải pháp công nghệ xanh ứng phó biến đổi khí hậu, cân bằng năng suất và bảo tồn tài nguyên.'
+                    : 'Developing green technology solutions to respond to climate change, balancing productivity and resource conservation.',
+                },
+                {
+                  Icon: Lightbulb,
+                  title: isVi ? 'Đổi mới & Khởi nghiệp' : 'Innovation & Entrepreneurship',
+                  desc: isVi
+                    ? 'Thúc đẩy hệ sinh thái hỗ trợ các ý tưởng khởi nghiệp trong công nghệ nông nghiệp.'
+                    : 'Fostering an ecosystem that supports startup ideas in agricultural technology.',
+                },
+              ].map((area, i) => {
+                const Icon = area.Icon
+                return (
+                  <div key={i} className="rounded-xl p-6" style={{ background: 'var(--surface)', border: '1px solid var(--border)' }}>
+                    <div className="w-10 h-10 rounded-lg flex items-center justify-center mb-4" style={{ background: 'var(--green-50)', color: 'var(--green-700)' }}>
+                      <Icon size={20} />
+                    </div>
+                    <h3 className="font-semibold mb-2" style={{ color: 'var(--text-1)', fontSize: '1rem' }}>{area.title}</h3>
+                    <p className="text-sm" style={{ color: 'var(--text-2)', lineHeight: 1.6 }}>{area.desc}</p>
+                  </div>
+                )
+              })}
+            </div>
+          </div>
+        </section>
+
+        {/* Leadership */}
+        <section className="py-16 px-4" style={{ background: 'var(--surface)' }}>
           <div className="max-w-7xl mx-auto">
             <div className="flex items-center gap-3 mb-8">
               <Users size={20} style={{ color: 'var(--green-600)' }} />
