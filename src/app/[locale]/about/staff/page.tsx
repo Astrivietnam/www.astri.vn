@@ -18,6 +18,8 @@ export default async function StaffPage({
     .eq('is_active', true)
     .order('sort_order', { ascending: true })
 
+  const PHOTO = 'https://uhukszgmvvkemqipepit.supabase.co/storage/v1/object/public/media/staff'
+
   const HARDCODED_LEADERSHIP = [
     {
       id: 'h1', is_leadership: true, is_active: true, sort_order: 1,
@@ -26,7 +28,7 @@ export default async function StaffPage({
       department_vi: 'Ban lãnh đạo', department_en: 'Leadership Board',
       bio_vi: 'Thạc sĩ chuyên ngành Khoa học Cây trồng, có nhiều năm kinh nghiệm nghiên cứu ứng dụng trong lĩnh vực nông nghiệp bền vững và chuyển giao công nghệ.',
       bio_en: 'MSc in Crop Science, with extensive experience in applied research in sustainable agriculture and technology transfer.',
-      email: 'luong.nguyen@astri.vn', photo_url: null,
+      email: 'luong.nguyen@astri.vn', photo_url: `${PHOTO}/nguyen-thi-luong.jpg`,
     },
     {
       id: 'h2', is_leadership: true, is_active: true, sort_order: 2,
@@ -35,7 +37,7 @@ export default async function StaffPage({
       department_vi: 'Ban lãnh đạo', department_en: 'Leadership Board',
       bio_vi: 'Thạc sĩ chuyên ngành Công nghệ sinh học, phụ trách mảng nghiên cứu khoa học và hợp tác quốc tế của Viện.',
       bio_en: 'MSc in Biotechnology, responsible for scientific research and international cooperation.',
-      email: null, photo_url: null,
+      email: null, photo_url: `${PHOTO}/pham-quyet-tien.jpg`,
     },
     {
       id: 'h3', is_leadership: true, is_active: true, sort_order: 3,
@@ -44,7 +46,7 @@ export default async function StaffPage({
       department_vi: 'Ban lãnh đạo', department_en: 'Leadership Board',
       bio_vi: 'Luật sư, phụ trách công tác pháp chế, hợp tác thương mại và phát triển doanh nghiệp của Viện.',
       bio_en: 'Legal counsel, responsible for legal affairs, commercial partnerships, and business development.',
-      email: null, photo_url: null,
+      email: null, photo_url: `${PHOTO}/chu-duc-toan.jpg`,
     },
     {
       id: 'h4', is_leadership: true, is_active: true, sort_order: 4,
@@ -53,16 +55,62 @@ export default async function StaffPage({
       department_vi: 'Ban Tài chính', department_en: 'Finance Department',
       bio_vi: 'Phụ trách công tác tài chính, kế toán và quản lý ngân sách của Viện ASTRI.',
       bio_en: 'Responsible for financial management, accounting, and budget oversight at ASTRI.',
-      email: null, photo_url: null,
+      email: null, photo_url: `${PHOTO}/chu-thi-hong-hai.jpg`,
+    },
+  ]
+
+  // Hội đồng Cố vấn, Khoa học, Công nghệ và Quản lý
+  const HARDCODED_COUNCIL = [
+    {
+      id: 'c1', is_leadership: false, is_active: true, sort_order: 1,
+      name_vi: 'TS. Chử Đức Hoàng', name_en: 'Dr. Chu Duc Hoang',
+      title_vi: 'Cố vấn', title_en: 'Advisor',
+      department_vi: 'Hội đồng Cố vấn, Khoa học, Công nghệ và Quản lý',
+      department_en: 'Advisory, Science, Technology & Management Council',
+      bio_vi: null, bio_en: null,
+      email: null, photo_url: `${PHOTO}/chu-duc-hoang.jpg`,
+    },
+    {
+      id: 'c2', is_leadership: false, is_active: true, sort_order: 2,
+      name_vi: 'TS. Tống Văn Hải', name_en: 'Dr. Tong Van Hai',
+      title_vi: 'Phụ trách Khoa học', title_en: 'Head of Science',
+      department_vi: 'Hội đồng Cố vấn, Khoa học, Công nghệ và Quản lý',
+      department_en: 'Advisory, Science, Technology & Management Council',
+      bio_vi: null, bio_en: null,
+      email: null, photo_url: `${PHOTO}/tong-van-hai.jpg`,
+    },
+    {
+      id: 'c3', is_leadership: false, is_active: true, sort_order: 3,
+      name_vi: 'TS. Phùng Thị Anh Minh', name_en: 'Dr. Phung Thi Anh Minh',
+      title_vi: 'Phụ trách Công nghệ', title_en: 'Head of Technology',
+      department_vi: 'Hội đồng Cố vấn, Khoa học, Công nghệ và Quản lý',
+      department_en: 'Advisory, Science, Technology & Management Council',
+      bio_vi: null, bio_en: null,
+      email: null, photo_url: `${PHOTO}/phung-thi-anh-minh.jpg`,
+    },
+    {
+      id: 'c4', is_leadership: false, is_active: true, sort_order: 4,
+      name_vi: 'Chử Văn Kiện', name_en: 'Chu Van Kien',
+      title_vi: 'Phụ trách Quản lý', title_en: 'Head of Management',
+      department_vi: 'Hội đồng Cố vấn, Khoa học, Công nghệ và Quản lý',
+      department_en: 'Advisory, Science, Technology & Management Council',
+      bio_vi: null, bio_en: null,
+      email: null, photo_url: `${PHOTO}/chu-van-kien.jpg`,
     },
   ]
 
   const dbStaff: Staff[] = allStaff ?? []
-  const staff = dbStaff.length > 0 ? dbStaff : (HARDCODED_LEADERSHIP as unknown as Staff[])
-  const leadership = dbStaff.length > 0
+  const usingFallback = dbStaff.length === 0
+  const staff = !usingFallback ? dbStaff : (HARDCODED_LEADERSHIP as unknown as Staff[])
+  const leadership = !usingFallback
     ? dbStaff.filter((s) => s.is_leadership)
     : (HARDCODED_LEADERSHIP as unknown as Staff[])
-  const researchers = dbStaff.filter((s) => !s.is_leadership)
+  const researchers = !usingFallback
+    ? dbStaff.filter((s) => !s.is_leadership)
+    : (HARDCODED_COUNCIL as unknown as Staff[])
+  const researchersHeading = usingFallback
+    ? { vi: 'Hội đồng Cố vấn, Khoa học, Công nghệ và Quản lý', en: 'Advisory, Science, Technology & Management Council' }
+    : { vi: 'Cán bộ nghiên cứu', en: 'Research Staff' }
 
   return (
     <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
@@ -226,7 +274,7 @@ export default async function StaffPage({
                 className="text-2xl font-bold mb-8"
                 style={{ color: 'var(--text-1)', letterSpacing: '-0.02em' }}
               >
-                {isVi ? 'Cán bộ nghiên cứu' : 'Research Staff'}
+                {isVi ? researchersHeading.vi : researchersHeading.en}
               </h2>
 
               <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
