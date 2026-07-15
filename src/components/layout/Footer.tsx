@@ -36,7 +36,7 @@ export default function Footer({ locale }: { locale: string }) {
           <div className="lg:col-span-2">
             <div className="mb-3">
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/logo-astri.png" alt="Viện ASTRI" style={{ height: 48, width: 'auto' }} />
+              <img src="/logo-astri.png" alt="Viện ASTRI" style={{ height: 64, width: 'auto' }} />
             </div>
             <p className="text-sm mb-1 font-medium" style={{ color: 'var(--text-1)' }}>
               {vi ? siteConfig.nameFull : siteConfig.nameEn}

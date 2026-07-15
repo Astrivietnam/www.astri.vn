@@ -45,7 +45,7 @@ export default function LoginForm({ locale }: LoginFormProps) {
       {/* Logo */}
       <div style={{ textAlign: 'center', marginBottom: '1.75rem' }}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="/logo-astri.png" alt="Viện ASTRI" style={{ height: 52, width: 'auto', marginBottom: '0.75rem' }} />
+        <img src="/logo-astri.png" alt="Viện ASTRI" style={{ height: 72, width: 'auto', marginBottom: '0.75rem' }} />
         <div>
           <p
             style={{
