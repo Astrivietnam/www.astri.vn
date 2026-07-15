@@ -137,7 +137,7 @@ export default function Header({ locale }: { locale: string }) {
           {/* Logo */}
           <Link href={href('/')} style={{ display: 'flex', alignItems: 'center', gap: '0.55rem', textDecoration: 'none', flexShrink: 0 }}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/logo-astri.svg" alt="Viện ASTRI" style={{ height: 34, width: 'auto', display: 'block' }} />
+            <img src="/logo-astri.png" alt="Viện ASTRI" style={{ height: 38, width: 'auto', display: 'block' }} />
             <span style={{ fontWeight: 600, fontSize: '0.8rem', color: logoColor, letterSpacing: '-0.01em', borderLeft: '1px solid #D4E4D7', paddingLeft: '0.55rem', lineHeight: 1.15, maxWidth: 150 }}>
               Viện Nghiên cứu Công nghệ<br/>Hỗ trợ Nông nghiệp
             </span>

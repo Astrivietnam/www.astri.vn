@@ -24,10 +24,11 @@ export default function Footer({ locale }: { locale: string }) {
     { vi: 'Liên hệ', en: 'Contact', href: '/contact' },
   ]
 
-  const linkStyle: React.CSSProperties = { color: 'var(--green-200)', textDecoration: 'none' }
+  const linkStyle: React.CSSProperties = { color: 'var(--text-2)', textDecoration: 'none' }
+  const headStyle: React.CSSProperties = { color: 'var(--text-1)' }
 
   return (
-    <footer style={{ background: 'var(--green-950)', color: 'var(--green-100)' }}>
+    <footer style={{ background: 'var(--surface)', color: 'var(--text-2)', borderTop: '1px solid var(--border)' }}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 pt-14 pb-8">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 mb-12">
 
@@ -35,12 +36,12 @@ export default function Footer({ locale }: { locale: string }) {
           <div className="lg:col-span-2">
             <div className="mb-3">
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/logo-astri-light.svg" alt="Viện ASTRI" style={{ height: 40, width: 'auto' }} />
+              <img src="/logo-astri.png" alt="Viện ASTRI" style={{ height: 48, width: 'auto' }} />
             </div>
-            <p className="text-sm mb-1" style={{ color: 'var(--green-200)' }}>
+            <p className="text-sm mb-1 font-medium" style={{ color: 'var(--text-1)' }}>
               {vi ? siteConfig.nameFull : siteConfig.nameEn}
             </p>
-            <p className="text-xs mb-4" style={{ color: 'var(--green-300)' }}>
+            <p className="text-xs mb-4" style={{ color: 'var(--text-3)' }}>
               {vi
                 ? 'Trực thuộc Liên hiệp các Hội Khoa học và Kỹ thuật Việt Nam (VUSTA) · QĐ số 1236/QĐ-LHHVN'
                 : 'Under Vietnam Union of Science and Technology Associations (VUSTA)'}
@@ -48,32 +49,32 @@ export default function Footer({ locale }: { locale: string }) {
 
             <ul className="flex flex-col gap-2.5 mt-4">
               <li className="flex gap-2.5 items-start">
-                <MapPin size={15} className="shrink-0 mt-0.5" style={{ color: 'var(--green-300)' }} />
-                <span className="text-sm" style={{ color: 'var(--green-200)' }}>
+                <MapPin size={15} className="shrink-0 mt-0.5" style={{ color: 'var(--green-700)' }} />
+                <span className="text-sm" style={{ color: 'var(--text-2)' }}>
                   {siteConfig.address}
                 </span>
               </li>
               <li className="flex gap-2.5 items-center">
-                <Mail size={15} className="shrink-0" style={{ color: 'var(--green-300)' }} />
-                <a href={`mailto:${siteConfig.email}`} className="text-sm hover:text-white transition-colors" style={linkStyle}>
+                <Mail size={15} className="shrink-0" style={{ color: 'var(--green-700)' }} />
+                <a href={`mailto:${siteConfig.email}`} className="text-sm hover:underline" style={linkStyle}>
                   {siteConfig.email}
                 </a>
               </li>
               {siteConfig.phone && (
                 <li className="flex gap-2.5 items-center">
-                  <Phone size={15} className="shrink-0" style={{ color: 'var(--green-300)' }} />
-                  <a href={`tel:${siteConfig.phone}`} className="text-sm hover:text-white transition-colors" style={linkStyle}>
+                  <Phone size={15} className="shrink-0" style={{ color: 'var(--green-700)' }} />
+                  <a href={`tel:${siteConfig.phone}`} className="text-sm hover:underline" style={linkStyle}>
                     {siteConfig.phone}
                   </a>
                 </li>
               )}
               <li className="flex gap-2.5 items-center">
-                <ExternalLink size={15} className="shrink-0" style={{ color: 'var(--green-300)' }} />
+                <ExternalLink size={15} className="shrink-0" style={{ color: 'var(--green-700)' }} />
                 <a
                   href="https://sinhthainongnghiep.net.vn"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-sm hover:text-white transition-colors"
+                  className="text-sm hover:underline"
                   style={linkStyle}
                 >
                   {vi ? 'Tạp chí Sinh thái Nông nghiệp' : 'Agricultural Ecology Journal'}
@@ -84,13 +85,13 @@ export default function Footer({ locale }: { locale: string }) {
 
           {/* Activities */}
           <div>
-            <h3 className="text-sm font-semibold text-white mb-4 uppercase tracking-wider">
+            <h3 className="text-sm font-semibold mb-4 uppercase tracking-wider" style={headStyle}>
               {vi ? 'Hoạt động' : 'Activities'}
             </h3>
             <ul className="flex flex-col gap-2">
               {colActivities.map((l) => (
                 <li key={l.href}>
-                  <Link href={`/${locale}${l.href}`} className="text-sm hover:text-white transition-colors" style={linkStyle}>
+                  <Link href={`/${locale}${l.href}`} className="text-sm hover:underline" style={linkStyle}>
                     {vi ? l.vi : l.en}
                   </Link>
                 </li>
@@ -100,13 +101,13 @@ export default function Footer({ locale }: { locale: string }) {
 
           {/* Institute */}
           <div>
-            <h3 className="text-sm font-semibold text-white mb-4 uppercase tracking-wider">
+            <h3 className="text-sm font-semibold mb-4 uppercase tracking-wider" style={headStyle}>
               {vi ? 'Về Viện' : 'Institute'}
             </h3>
             <ul className="flex flex-col gap-2">
               {colInstitute.map((l) => (
                 <li key={l.href}>
-                  <Link href={`/${locale}${l.href}`} className="text-sm hover:text-white transition-colors" style={linkStyle}>
+                  <Link href={`/${locale}${l.href}`} className="text-sm hover:underline" style={linkStyle}>
                     {vi ? l.vi : l.en}
                   </Link>
                 </li>
@@ -117,11 +118,11 @@ export default function Footer({ locale }: { locale: string }) {
 
         <div
           className="pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs"
-          style={{ borderTop: '1px solid var(--green-900)', color: 'var(--green-300)' }}
+          style={{ borderTop: '1px solid var(--border)', color: 'var(--text-3)' }}
         >
           <p>© {new Date().getFullYear()} {t('copyright')}. All rights reserved.</p>
           <div className="flex gap-4">
-            <Link href={`/${locale === 'vi' ? 'en' : 'vi'}`} className="hover:text-white transition-colors">
+            <Link href={`/${locale === 'vi' ? 'en' : 'vi'}`} className="hover:underline" style={{ color: 'var(--green-700)' }}>
               {locale === 'vi' ? 'English' : 'Tiếng Việt'}
             </Link>
           </div>

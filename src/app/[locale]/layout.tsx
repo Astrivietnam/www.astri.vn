@@ -30,10 +30,10 @@ export const metadata: Metadata = {
   metadataBase: new URL('https://www.astri.vn'),
   icons: {
     icon: [
-      { url: '/logo-mark.svg', type: 'image/svg+xml' },
       { url: '/favicon.ico' },
+      { url: '/logo-mark.png', type: 'image/png', sizes: '256x256' },
     ],
-    apple: '/logo-mark.svg',
+    apple: '/logo-mark.png',
   },
 }
 
