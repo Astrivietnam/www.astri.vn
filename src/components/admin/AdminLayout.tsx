@@ -66,6 +66,7 @@ const NAV_GROUPS: NavGroup[] = [
     title: 'Hệ thống',
     items: [
       { label: 'Người dùng', href: '/admin/users', icon: <Users size={16} /> },
+      { label: 'Hồ sơ', href: '/admin/profile', icon: <UserCircle size={16} /> },
       { label: 'Cài đặt', href: '/admin/settings', icon: <Settings size={16} /> },
     ],
   },
@@ -202,9 +203,21 @@ export default function AdminLayout({ children, locale, user }: AdminLayoutProps
             borderBottom: '1px solid rgba(255,255,255,0.08)',
           }}
         >
-          <div style={{ color: '#ffffff', fontSize: '13px', fontWeight: '600', marginBottom: '4px' }}>
+          <Link
+            href={`/${locale}/admin/profile`}
+            onClick={() => setSidebarOpen(false)}
+            style={{
+              display: 'block',
+              color: '#ffffff',
+              fontSize: '13px',
+              fontWeight: '600',
+              marginBottom: '4px',
+              textDecoration: 'none',
+            }}
+            title="Xem hồ sơ cá nhân"
+          >
             {user.name}
-          </div>
+          </Link>
           <span
             style={{
               display: 'inline-block',
