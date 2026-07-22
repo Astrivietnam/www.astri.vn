@@ -113,7 +113,7 @@ export default async function PostPage({
       )
     : ''
 
-  const siteUrl = 'https://new.astri.vn'
+  const siteUrl = 'https://www.astri.vn'
   const articleUrl = `${siteUrl}/${locale}/news/${post.slug}`
   const jsonLd = {
     '@context': 'https://schema.org',
